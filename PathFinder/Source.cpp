@@ -1,4 +1,5 @@
 #include "Graph.h"
+#include "Heap.h"
 #include "Dijkstra.h"
 #include "A_star.h"
 #include "ReadData.h"
@@ -16,6 +17,7 @@ static void out(std::vector<int>& v) {
 }
 
 int main() {
+
 	/*
 	std::vector < std::vector<std::pair<int, double>> > g=
 	{
@@ -40,11 +42,12 @@ int main() {
 
 
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-	auto s=Dijkstra::solve(0, 20000, graph);
-	//auto s = A_star::solve(0, 20000, graph, nodes);
+	//auto s=Dijkstra::solve(0, 20000, graph);
+	auto s = A_star::solve(0, 20000, graph, nodes);
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 	out(s);
 	std::cout << std::endl;
 	std::cout << "Time difference = " << (double)std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()/10e6 << "[s]" << std::endl;
 	getchar();
+	
 }

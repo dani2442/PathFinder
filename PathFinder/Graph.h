@@ -12,7 +12,7 @@ public:
 struct Node {
 	double x, y;
 
-	static double l2(Node& a, Node& b) { return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)); }
+	static double l2(Node& a, Node& b) { return (a.x - b.x)*(a.x - b.x)+(a.y - b.y)*(a.y - b.y); }
 };
 
 class Graph {

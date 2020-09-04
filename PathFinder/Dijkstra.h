@@ -1,5 +1,69 @@
 #pragma once
+#include <vector>
 #include "Graph.h"
+#include "Heap.h"
+
+class Dijkstra
+{
+public:
+	static std::vector<int> solve(int u,int v,Graph& g){
+		int n = g.size();
+		Heap temp(n);
+		std::vector<int> preced(n,-1);
+		std::vector<bool> used(n, false);
+
+		double distance = 0;
+		int actual_node = u;
+		used[u] = true;
+
+		for (int i = 0; i < n; i++) {
+			std::vector<std::pair<int, double>>& vec=g.getVector(actual_node);
+			
+			for (int j = 0; j < vec.size(); j++) {
+				int node = vec[j].first;
+				if (!used[node]) {
+					if (distance + vec[j].second < temp.getValue(node)) {
+						temp.add(node,distance + vec[j].second);
+						preced[node] = actual_node;
+					}
+				}
+			}
+
+			int min = temp.get_min();
+			temp.del_min();
+
+			if (min == v) {
+				break;
+			}
+
+			used[min] = true;
+			distance = temp.getValue(min);
+			actual_node = min;
+		}
+
+		std::vector<int> r;
+		int k = v;
+		while (true) {
+			if(k==u){
+				r.push_back(u);
+				std::reverse(r.begin(), r.end());
+				return r;
+			}
+			else if (preced[k] == -1) return {};
+			else {
+				r.push_back(k);
+				k=preced[k];
+			}
+		}
+	}
+};
+
+
+
+/*
+#pragma once
+#include "Graph.h"
+#include "Heap.h"
 
 class Dijkstra
 {
@@ -58,4 +122,4 @@ public:
 		}
 	}
 };
-
+*/
